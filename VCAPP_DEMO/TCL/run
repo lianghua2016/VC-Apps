@@ -1,0 +1,2 @@
+#!/bin/csh -f
+./vcapp_perl_wrapper.pl -sv test.v -mod dut -log inst.list
