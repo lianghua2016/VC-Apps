@@ -1,0 +1,43 @@
+#
+#gcc compiler setup
+#
+VG_GNU_HOME	=	/depot/gcc-4.8.3/
+CC			=	$(VG_GNU_HOME)/bin/g++
+CFLAGS		=	-Wall -g -std=c++11 -fPIC
+LD			=	$(CC)
+LDFLAGS		=
+RM			=	rm 
+
+#
+#directory setup
+#
+NPI_PLATFORM	=LINUX64
+#include file
+NPI_L1_INC		=$(VERDI_HOME)/share/NPI/L1/C/inc
+NPI_INC			=$(VERDI_HOME)/share/NPI/inc
+#shared library
+NPI_LIB			=$(VERDI_HOME)/share/NPI/lib/$(NPI_PLATFORM)
+NPI_SO			=$(NPI_LIB)/libNPI.so 
+NPI_L1_SO		=$(NPI_LIB)/libnpiL1.so 
+
+#
+#program setup
+#
+EXE		= Get_Mod_Instances.so 
+SRCS	= main.cpp
+OBJS	= $(SRCS:.cpp=.o)
+#
+#compiling and linking
+#
+.SUFFIXES: .o .cpp 
+.cpp.o :
+		$(CC) $(CFLAGS) -c $< -I$(NPI_INC) -I$(NPI_L1_INC)  
+
+all: $(EXE) 
+
+$(EXE): $(OBJS) 
+		$(LD) -shared -o $@ $(OBJS) -L$(NPI_LIB) -lnpiL1  -lNPI   -ldl -lpthread -lrt -lz
+		@echo "make $(EXE) successful..."
+
+clean:
+		-$(RM) -f $(EXE) $(OBJS)
