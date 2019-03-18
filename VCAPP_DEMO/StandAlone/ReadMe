@@ -1,0 +1,4 @@
+1:how to compile c code:
+	make all
+2:how to run verdi:
+    ./run

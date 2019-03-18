@@ -1,0 +1,4 @@
+#!/bin/csh -f
+setenv VERDI_HOME /global/apps/verdi_2017.12
+setenv LD_LIBRARY_PATH $VERDI_HOME/share/NPI/lib/linux64:$VERDI_HOME/etc/lib/libstdc++/LINUX64:$LD_LIBRARY_PATH
+Get_Mod_Instance -sv test.v -mod dut -log dut_inst.list
